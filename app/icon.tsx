@@ -4,10 +4,10 @@ import { loadGoogleFont } from "@/components/loadGoogleFont";
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
-// "MD" monogram on an off-white circle, in Fraunces at weight 400 to match the
-// "MistryDesign" nav wordmark exactly.
+// "MD" monogram on an off-white circle, in Instrument Sans — the sans-serif
+// face used elsewhere on the site, so the mark reads as a clean wordmark.
 export default async function Icon() {
-  const fraunces = await loadGoogleFont("Fraunces", "MD", 400);
+  const sans = await loadGoogleFont("Instrument Sans", "MD", 500);
 
   return new ImageResponse(
     (
@@ -31,10 +31,10 @@ export default async function Icon() {
             alignItems: "center",
             justifyContent: "center",
             color: "#221e1a",
-            fontFamily: "Fraunces",
-            fontWeight: 400,
-            fontSize: 33,
-            letterSpacing: "-0.03em",
+            fontFamily: "Instrument Sans",
+            fontWeight: 500,
+            fontSize: 30,
+            letterSpacing: "-0.015em",
           }}
         >
           MD
@@ -43,7 +43,9 @@ export default async function Icon() {
     ),
     {
       ...size,
-      fonts: [{ name: "Fraunces", data: fraunces, style: "normal", weight: 400 }],
+      fonts: [
+        { name: "Instrument Sans", data: sans, style: "normal", weight: 500 },
+      ],
     }
   );
 }
