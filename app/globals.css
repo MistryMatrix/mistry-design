@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------
+   Warm editorial palette + type system
+----------------------------------------------------------------- */
+@theme {
+  --color-paper: #f5f0eb;       /* light surfaces (cards) — warm off-white */
+  --color-sand: #e9e3d8;        /* page background — warmer gray */
+  --color-ink: #221e1a;         /* primary text — warm near-black */
+  --color-accent: #c9a96e;      /* warm gold, used sparingly */
+  --color-band: #1c1917;        /* dark bands (reserved) */
+  --color-band-raised: #26221c; /* lifted dark surface (reserved) */
+
+  --font-display: var(--font-fraunces);          /* headings */
+  --font-body: var(--font-instrument-sans);      /* body / UI (default) */
+  --font-mono: var(--font-departure-mono);       /* labels / metadata */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Square everything off — editorial, no rounded corners anywhere.
+   (Rounded utility classes have also been removed from the components,
+   so this is the explicit baseline rather than a forced override.) */
+*,
+*::before,
+*::after {
+  border-radius: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+/* Offset anchor scrolling for the sticky header */
+section[id],
+div[id="top"] {
+  scroll-margin-top: 88px;
+}
+
+/* Frosted panel — shared by the About, Contact, and Footer cards so they read
+   as one cohesive system over the animated background. */
+.frosted-card {
+  background: rgba(245, 240, 235, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ----------------------------------------------------------------
+   Hero headline — Fraunces, with an italic phrase and forced breaks
+----------------------------------------------------------------- */
+.hero-headline {
+  /* Hanken Grotesk for a genuinely thin base (Instrument Sans floors at 400) */
+  font-family: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 300;
+  font-size: clamp(32px, 8vw, 64px);
+  line-height: 1.1;
+  color: var(--color-ink);
+}
+
+.hero-headline em {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* "small businesses" must never break across two lines */
+.hero-headline .nobr {
+  white-space: nowrap;
+}
+
+/* Forced line breaks on desktop; natural reflow on mobile.
+   The {" "} guards in the JSX keep word spacing correct when these hide. */
+.desktop-break {
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  .desktop-break {
+    display: none;
+  }
+}
+
+/* ----------------------------------------------------------------
+   "Book a call" button — squared mono editorial style
+----------------------------------------------------------------- */
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-departure-mono), ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-ink);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 40%, transparent);
+  padding: 13px 22px;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.cta-btn:hover {
+  background: var(--color-ink);
+  color: var(--color-sand);
+  border-color: var(--color-ink);
+}
+
+.cta-btn .arrow {
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.cta-btn:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* ----------------------------------------------------------------
+   Work card live-preview thumbnail (2x render, scaled to 0.5)
+----------------------------------------------------------------- */
+.card-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--color-band-raised);
+}
+
+.card-thumb iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250%;
+  height: 250%;
+  transform: scale(0.4);
+  transform-origin: top left;
+  border: none;
+  pointer-events: none;
+}
+
+.card-thumb .thumb-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  text-align: center;
+  background: var(--color-band-raised);
+}
+
+.card-thumb .thumb-fallback span {
+  font-family: var(--font-departure-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--color-paper);
+  opacity: 0.75;
+  word-break: break-all;
+}
