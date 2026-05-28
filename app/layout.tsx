@@ -45,7 +45,7 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "MistryDesign · Websites for small businesses in Princeton, NJ",
+  title: "MistryDesign · Small Business Websites, Princeton NJ",
   description:
     "Custom websites for restaurants, shops, and service businesses in the Princeton area. No templates. No drag-and-drop.",
 };
